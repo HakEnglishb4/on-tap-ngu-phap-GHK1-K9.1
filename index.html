@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Tiếng Anh 9 - Ngữ Pháp Trọng Tâm</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client"
+  }
+}
+</script>
+</head>
+  <body class="bg-sky-100">
+    <noscript>Bạn cần bật JavaScript để chạy ứng dụng này.</noscript>
+    <div id="root"></div>
+    <script type="module">
+      import React, { useState, useCallback, useMemo } from 'react';
+      import ReactDOM from 'react-dom/client';
+
+      // --- START OF ICONS (Converted to React.createElement) ---
+      const GraduationCapIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, ...props },
+          React.createElement('path', { d: "M12 14l9-5-9-5-9 5 9 5z" }),
+          React.createElement('path', { d: "M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-5.998 12.078 12.078 0 01.665-6.479L12 14z" }),
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-5.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222 4 2.222V20M1 12v5a2 2 0 002 2h18a2 2 0 002-2v-5" })
+      );
+      const StarIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "currentColor", viewBox: "0 0 24 24", ...props },
+          React.createElement('path', { d: "M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" })
+      );
+      const CheckCircleIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, ...props },
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" })
+      );
+      const TimesCircleIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, ...props },
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" })
+      );
+      const LightbulbIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, ...props },
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" })
+      );
+      const ArrowRightIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, ...props },
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M14 5l7 7m0 0l-7 7m7-7H3" })
+      );
+      const TrophyIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, ...props },
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z", transform: "translate(0 1)" }),
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M5 3a2 2 0 012-2h10a2 2 0 012 2v2a2 2 0 01-2 2H7a2 2 0 01-2-2V3z" }),
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 12v9" }),
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M8 21h8" }),
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 5v2" }),
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 5C9.79 5 8 6.79 8 9h8c0-2.21-1.79-4-4-4z", transform: "translate(0 -1)" })
+      );
+      const ExclamationTriangleIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, ...props },
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" })
+      );
+      const RedoAltIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, ...props },
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M4 4v5h5M20 12a8 8 0 10-8 8" })
+      );
+      const BookOpenIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, ...props },
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" })
+      );
+      const SearchPlusIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, ...props },
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" })
+      );
+      const ArrowLeftIcon = (props) => React.createElement('svg', { xmlns: "http://www.w3.org/2000/svg", className: "h-6 w-6", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 2, ...props },
+          React.createElement('path', { strokeLinecap: "round", strokeLinejoin: "round", d: "M10 19l-7-7m0 0l7-7m-7 7h18" })
+      );
+      // --- END OF ICONS ---
+
+      // --- START OF CONSTANTS ---
+      const quizData = [
+        // Theory Questions (50)
+        { q: "Which tense is used to describe habits, general truths, and repeated actions?", hint: "Thì nào được dùng để miêu tả thói quen, sự thật hiển nhiên và các hành động lặp đi lặp lại?", options: ["Present Continuous", "Past Simple", "Present Simple", "Past Continuous"], ans: "C", expl: "Thì <strong>Hiện tại đơn (Present Simple)</strong> được sử dụng để diễn tả các <strong>thói quen (habits)</strong>, <strong>sự thật hiển nhiên (general truths)</strong>, và các hành động lặp đi lặp lại. Nó thường đi kèm với các trạng từ chỉ tần suất như 'every day', 'usually', 'always'." },
+        { q: "What is the correct auxiliary verb for the negative form of Present Simple with 'He/She/It'?", hint: "Trợ động từ đúng cho dạng phủ định của thì Hiện tại đơn với chủ ngữ 'He/She/It' là gì?", options: ["don't", "doesn't", "isn't", "aren't"], ans: "B", expl: "Đối với chủ ngữ ngôi thứ ba số ít (He, She, It) ở thì Hiện tại đơn, chúng ta sử dụng trợ động từ <strong>doesn't</strong> (viết tắt của does not) để thành lập câu phủ định." },
+        { q: "How do you form the Present Continuous tense?", hint: "Bạn tạo thì Hiện tại tiếp diễn như thế nào?", options: ["Subject + V-s/es", "Subject + was/were + V-ing", "Subject + V(past)", "Subject + am/is/are + V-ing"], ans: "D", expl: "Công thức của thì Hiện tại tiếp diễn là <strong>Chủ ngữ + to be (am/is/are) + Động từ-ing</strong>. Thì này được dùng cho các hành động đang xảy ra ngay tại thời điểm nói hoặc các tình huống tạm thời." },
+        { q: "Which time expression is commonly used with the Present Continuous tense?", hint: "Cụm từ chỉ thời gian nào thường được dùng với thì Hiện tại tiếp diễn?", options: ["yesterday", "every morning", "at the moment", "last week"], ans: "C", expl: "Các cụm từ chỉ thời gian như 'now', 'right now', và <strong>'at the moment' (ngay lúc này)</strong> là những dấu hiệu nhận biết chính của thì Hiện tại tiếp diễn." },
+        { q: "Verbs ending in '-ss', '-sh', '-ch', '-x', and '-o' add what in the Present Simple for the third person singular?", hint: "Động từ kết thúc bằng '-ss', '-sh', '-ch', '-x', và '-o' thêm gì ở thì Hiện tại đơn cho ngôi thứ ba số ít?", options: ["-s", "-ing", "-es", "-ies"], ans: "C", expl: "Đối với các động từ kết thúc bằng những chữ cái này, chúng ta thêm đuôi <strong>-es</strong> khi chia với chủ ngữ ngôi thứ ba số ít. Ví dụ: he watches, she goes." },
+        { q: "What happens to a verb ending in a consonant + '-y' in the Present Simple (third person singular)?", hint: "Điều gì xảy ra với động từ kết thúc bằng một phụ âm + '-y' ở thì Hiện tại đơn (ngôi thứ ba số ít)?", options: ["Just add -s", "Add -es", "Change -y to -ies", "No change"], ans: "C", expl: "Khi động từ kết thúc bằng một phụ âm + 'y', chúng ta đổi 'y' thành 'i' và thêm <strong>-ies</strong>. Ví dụ: 'study' trở thành 'studies'." },
+        { q: "What is the primary use of the Past Simple tense?", hint: "Công dụng chính của thì Quá khứ đơn là gì?", options: ["Actions happening now", "Completed actions in the past", "Temporary past actions", "Future plans made in the past"], ans: "B", expl: "Thì Quá khứ đơn được sử dụng cho các hành động đã bắt đầu và <strong>kết thúc tại một thời điểm cụ thể trong quá khứ</strong>." },
+        { q: "How do you pronounce the '-ed' ending in the word 'needed'?", hint: "Bạn phát âm đuôi '-ed' trong từ 'needed' như thế nào?", options: ["/t/", "/d/", "/id/", "/ed/"], ans: "C", expl: "Khi một động từ kết thúc bằng âm /t/ hoặc /d/, đuôi '-ed' được phát âm là <strong>/id/</strong>. Ví dụ: wanted, needed, decided." },
+        { q: "What is the main function of the Past Continuous tense?", hint: "Chức năng chính của thì Quá khứ tiếp diễn là gì?", options: ["To describe a completed past action", "To describe an action in progress at a specific time in the past", "To describe a past habit", "To describe a general truth in the past"], ans: "B", expl: "Thì Quá khứ tiếp diễn (was/were + V-ing) dùng để mô tả một hành động <strong>đang diễn ra tại một thời điểm cụ thể trong quá khứ</strong>, ví dụ: 'at 8 p.m. yesterday'." },
+        { q: "In the sentence 'I was reading when the phone rang,' which is the interrupting action?", hint: "Trong câu 'I was reading when the phone rang,' hành động xen ngang là gì?", options: ["I was reading", "The phone rang", "Both actions", "Neither action"], ans: "B", expl: "Hành động ở thì Quá khứ đơn ('the phone rang') là hành động ngắn, <strong>xen ngang</strong>, cắt vào hành động dài hơn đang diễn ra ở thì Quá khứ tiếp diễn ('was reading')." },
+        { q: "The structure 'wish + Past Simple' is used to talk about...", hint: "Cấu trúc 'wish + Quá khứ đơn' được dùng để nói về...", options: ["wishes for the future", "regrets about the past", "unreal or hypothetical situations in the present", "real situations in the present"], ans: "C", expl: "Chúng ta sử dụng cấu trúc <strong>wish + Quá khứ đơn</strong> để diễn tả một mong muốn về một tình huống ở hiện tại khác đi (một điều kiện không có thật ở hiện tại)." },
+        { q: "Which of these verbs is typically followed by a to-infinitive?", hint: "Động từ nào trong số này thường được theo sau bởi một to-infinitive?", options: ["enjoy", "suggest", "avoid", "decide"], ans: "D", expl: "Các động từ như 'plan', 'hope', 'promise', và <strong>'decide' (quyết định)</strong> được theo sau bởi một <strong>động từ nguyên mẫu có 'to' (to-infinitive)</strong>." },
+        { q: "Which of these verbs is typically followed by a gerund (-ing)?", hint: "Động từ nào trong số này thường được theo sau bởi một danh động từ (-ing)?", options: ["want", "need", "refuse", "enjoy"], ans: "D", expl: "Các động từ chỉ sự yêu/ghét như 'like', 'love', <strong>'enjoy' (thích thú)</strong>, và 'hate' được theo sau bởi một <strong>danh động từ (gerund - V-ing)</strong>." },
+        { q: "In the sentence 'The teacher let us leave early,' the verb 'leave' is a...", hint: "Trong câu 'The teacher let us leave early,' động từ 'leave' là một...", options: ["to-infinitive", "gerund", "bare infinitive", "past participle"], ans: "C", expl: "Các động từ thể sai khiến như 'let' và 'make' được theo sau bởi một tân ngữ và một <strong>động từ nguyên mẫu không 'to' (bare infinitive)</strong>. Cấu trúc: let + O + V(bare)." },
+        { q: "The structure 'too + adjective + to-infinitive' has a...", hint: "Cấu trúc 'too + tính từ + to-infinitive' có nghĩa...", options: ["positive meaning", "negative meaning", "neutral meaning", "comparative meaning"], ans: "B", expl: "Cấu trúc này mang <strong>nghĩa phủ định</strong>, ngụ ý rằng một điều gì đó là quá mức và ngăn cản một hành động xảy ra. Ví dụ: 'too tired to work' (quá mệt để làm việc)." },
+        { q: "The structure 'adjective + enough + to-infinitive' means...", hint: "Cấu trúc 'tính từ + enough + to-infinitive' có nghĩa là...", options: ["not sufficient to do something", "excessive for doing something", "sufficient to do something", "planning to do something"], ans: "C", expl: "Cấu trúc này mang nghĩa khẳng định, cho thấy có một phẩm chất <strong>đủ</strong> để thực hiện một hành động. Ví dụ: 'strong enough to lift' (đủ mạnh để nâng)." },
+        { q: "What is the function of the '-ing' form in 'Sightseeing is fun'?", hint: "Chức năng của dạng '-ing' trong 'Sightseeing is fun' là gì?", options: ["An adjective", "Part of a continuous tense", "A noun (gerund)", "An adverb"], ans: "C", expl: "Khi một dạng '-ing' được sử dụng làm chủ ngữ của câu, nó có chức năng như một danh từ, được gọi là <strong>danh động từ (gerund)</strong>." },
+        { q: "Which modal verb is NOT followed by a bare infinitive?", hint: "Động từ khiếm khuyết nào KHÔNG được theo sau bởi động từ nguyên mẫu không 'to'?", options: ["can", "should", "must", "ought"], ans: "D", expl: "Trong khi hầu hết các động từ khiếm khuyết (can, must, should, v.v.) đi với động từ nguyên mẫu không 'to', <strong>'ought'</strong> là một ngoại lệ và phải được theo sau bởi <strong>'to' (ought to)</strong>." },
+        { q: "How do you form the '-ing' for a verb like 'lie'?", hint: "Bạn tạo dạng '-ing' cho một động từ như 'lie' như thế nào?", options: ["lieing", "liing", "lying", "leing"], ans: "C", expl: "Đối với các động từ kết thúc bằng '-ie', chúng ta đổi '-ie' thành '-y' và thêm '-ing', vì vậy 'lie' trở thành <strong>'lying'</strong>." },
+        { q: "The word 'while' is often used to connect two actions that are...", hint: "Từ 'while' thường được dùng để nối hai hành động đang...", options: ["happening one after another", "interrupting each other", "happening at the same time", "completely unrelated"], ans: "C", expl: "<strong>'While' (trong khi)</strong> được sử dụng để chỉ hai hành động dài hơn đang diễn ra đồng thời, thường cả hai đều ở thì Quá khứ tiếp diễn." },
+        { q: "What is the rule for forming the past tense of regular verbs ending in 'consonant + y'?", hint: "Quy tắc để tạo thì quá khứ của động từ có quy tắc kết thúc bằng 'phụ âm + y' là gì?", options: ["Add -ed", "Change y to i and add -ed", "Just add -d", "Double the consonant and add -ed"], ans: "B", expl: "Đối với các động từ có quy tắc kết thúc bằng 'phụ âm + y', bạn đổi 'y' thành 'i' rồi thêm '-ed'. Ví dụ: 'try' trở thành 'tried'." },
+        { q: "In the structure 'She doesn't know what to do', 'what to do' functions as...", hint: "Trong cấu trúc 'She doesn't know what to do', 'what to do' có chức năng như...", options: ["the subject", "a verb phrase", "an object (noun phrase)", "an adjective clause"], ans: "C", expl: "Một cụm 'Từ để hỏi Wh- + to-infinitive' hoạt động như một <strong>cụm danh từ</strong>, thường làm tân ngữ cho một động từ như 'know', 'decide', hoặc 'ask'." },
+        { q: "The verb 'suggest' is followed by what form?", hint: "Động từ 'suggest' được theo sau bởi dạng nào?", options: ["to-infinitive", "bare infinitive", "gerund (-ing)", "past tense verb"], ans: "C", expl: "Động từ <strong>'suggest' (gợi ý)</strong> luôn được theo sau bởi một <strong>danh động từ (-ing)</strong>. Ví dụ: 'He suggested going to the cinema'." },
+        { q: "How is the '-ed' ending pronounced in the word 'walked'?", hint: "Đuôi '-ed' trong từ 'walked' được phát âm như thế nào?", options: ["/t/", "/d/", "/id/", "silent"], ans: "A", expl: "Sau các phụ âm vô thanh như /k/, /p/, /s/, đuôi '-ed' được phát âm là <strong>/t/</strong>." },
+        { q: "The expression 'can't stand' is followed by...", hint: "Thành ngữ 'can't stand' được theo sau bởi...", options: ["a to-infinitive", "a gerund (-ing)", "a bare infinitive", "a noun"], ans: "B", expl: "Các thành ngữ như 'can't stand' (không thể chịu được) và 'can't help' được theo sau bởi một <strong>danh động từ (-ing)</strong>. Ví dụ: 'I can't stand waiting'." },
+        { q: "In 'He wishes he were a doctor,' why is 'were' used instead of 'was'?", hint: "Trong câu 'He wishes he were a doctor,' tại sao 'were' được dùng thay vì 'was'?", options: ["It's a mistake", "It's for past events", "It's the subjunctive mood for unreal situations", "It's for plural subjects only"], ans: "C", expl: "Trong tiếng Anh trang trọng, <strong>'were'</strong> được sử dụng cho tất cả các chủ ngữ (bao gồm I/he/she/it) trong các tình huống giả định hoặc không có thật. Đây được gọi là <strong>thể giả định (subjunctive mood)</strong>." },
+        { q: "Which tense describes a temporary action happening around the present?", hint: "Thì nào miêu tả một hành động tạm thời đang diễn ra xung quanh thời điểm hiện tại?", options: ["Present Simple", "Present Continuous", "Past Simple", "Future Simple"], ans: "B", expl: "Thì <strong>Hiện tại tiếp diễn</strong> có thể được sử dụng cho các tình huống hoặc dự án tạm thời, thường đi với các từ như 'these days' (dạo này) hoặc 'this month' (tháng này)." },
+        { q: "The verb 'promise' is followed by which verb form?", hint: "Động từ 'promise' được theo sau bởi dạng động từ nào?", options: ["Gerund (-ing)", "To-infinitive", "Bare infinitive", "Past participle"], ans: "B", expl: "Động từ <strong>'promise' (hứa)</strong> được theo sau bởi một <strong>động từ nguyên mẫu có 'to' (to-infinitive)</strong>. Ví dụ: 'She promised to help me'." },
+        { q: "What is the purpose of using 'for someone' in a 'too/enough' structure?", hint: "Mục đích của việc dùng 'for someone' trong cấu trúc 'too/enough' là gì?", options: ["To show possession", "To specify who is affected or performs the action", "To give a reason", "To indicate time"], ans: "B", expl: "Chúng ta sử dụng 'for + tân ngữ' (ví dụ: 'for me', 'for them') để <strong>chỉ rõ người</strong> mà hành động đó quá khó hoặc quá dễ đối với họ. Ví dụ: 'The coffee is too hot for me to drink'." },
+        { q: "The verb 'make' in the sense of 'force' or 'compel' is followed by...", hint: "Động từ 'make' với nghĩa 'bắt buộc' hoặc 'ép buộc' được theo sau bởi...", options: ["to-infinitive", "gerund", "object + bare infinitive", "object + to-infinitive"], ans: "C", expl: "Cấu trúc là <strong>make + tân ngữ + động từ nguyên mẫu không 'to'</strong>. Ví dụ: 'My parents made me clean my room' (Bố mẹ bắt tôi dọn phòng)." },
+        { q: "What is the rule for doubling the final consonant before adding '-ing'?", hint: "Quy tắc gấp đôi phụ âm cuối trước khi thêm '-ing' là gì?", options: ["Always double it", "Never double it", "Double it for verbs ending in 'w' or 'x'", "Double it for one-syllable verbs ending in consonant-vowel-consonant"], ans: "D", expl: "Chúng ta gấp đôi phụ âm cuối đối với các động từ ngắn, một âm tiết kết thúc bằng CVC (phụ âm-nguyên âm-phụ âm), ví dụ: get -> getting. Nhưng không áp dụng cho các động từ kết thúc bằng w, x, y." },
+        { q: "Which tense would you use for a scheduled event in the future, like a train timetable?", hint: "Bạn sẽ dùng thì nào cho một sự kiện đã được lên lịch trong tương lai, như lịch trình tàu hỏa?", options: ["Present Continuous", "Past Continuous", "Future Simple (will)", "Present Simple"], ans: "D", expl: "Thì <strong>Hiện tại đơn</strong> được sử dụng cho các sự kiện trong tương lai là một phần của lịch trình hoặc thời gian biểu cố định, chẳng hạn như 'The train leaves at 5 p.m.' (Chuyến tàu khởi hành lúc 5 giờ chiều)." },
+        { q: "The expression 'had better' is a strong piece of advice and is followed by...", hint: "Cụm từ 'had better' là một lời khuyên mạnh mẽ và được theo sau bởi...", options: ["a to-infinitive", "a gerund", "a bare infinitive", "a past tense verb"], ans: "C", expl: "<strong>'Had better' (tốt hơn nên)</strong> được theo sau bởi một <strong>động từ nguyên mẫu không 'to'</strong>. Ví dụ: 'You had better hurry' (Bạn tốt hơn nên nhanh lên)." },
+        { q: "What is the difference in meaning between 'I stopped to talk' and 'I stopped talking'?", hint: "Sự khác biệt về nghĩa giữa 'I stopped to talk' và 'I stopped talking' là gì?", options: ["There is no difference", "'to talk' is the purpose; 'talking' is the action that ceased", "'to talk' is the action that ceased; 'talking' is the purpose", "Both are grammatically incorrect"], ans: "B", expl: "'Stopped to talk' có nghĩa là bạn dừng một hoạt động khác lại <strong>để nói chuyện (mục đích)</strong>. 'Stopped talking' có nghĩa là <strong>hành động nói chuyện đã kết thúc</strong>." },
+        { q: "The verb 'refuse' is followed by which verb form?", hint: "Động từ 'refuse' được theo sau bởi dạng động từ nào?", options: ["Gerund", "To-infinitive", "Bare infinitive", "Noun"], ans: "B", expl: "<strong>'Refuse' (từ chối)</strong> được theo sau bởi một <strong>động từ nguyên mẫu có 'to'</strong>. Ví dụ: 'He refused to answer the question' (Anh ấy từ chối trả lời câu hỏi)." },
+        { q: "How is the '-s' ending pronounced in the word 'lives' (verb)?", hint: "Đuôi '-s' trong từ 'lives' (động từ) được phát âm như thế nào?", options: ["/s/", "/z/", "/iz/", "/es/"], ans: "B", expl: "Sau các âm hữu thanh, bao gồm nguyên âm và các phụ âm như /v/, /l/, /m/, đuôi '-s' được phát âm là <strong>/z/</strong>." },
+        { q: "Which of the following is a stative verb, not typically used in continuous tenses?", hint: "Từ nào sau đây là một động từ trạng thái, thường không được dùng ở các thì tiếp diễn?", options: ["run", "eat", "believe", "talk"], ans: "C", expl: "<strong>'Believe' (tin tưởng)</strong> là một động từ trạng thái, mô tả một trạng thái tinh thần hơn là một hành động. Động từ trạng thái thường không được sử dụng ở các thì tiếp diễn." },
+        { q: "To express a purpose or reason for an action, we can use...", hint: "Để diễn tả mục đích hoặc lý do cho một hành động, chúng ta có thể dùng...", options: ["a gerund", "a to-infinitive", "the present simple", "a bare infinitive"], ans: "B", expl: "<strong>Động từ nguyên mẫu có 'to'</strong> thường được sử dụng để giải thích 'tại sao' một hành động được thực hiện. Ví dụ: 'I went to the store to buy milk' (Tôi đến cửa hàng để mua sữa)." },
+        { q: "What is the correct form of 'go' after the phrase 'would love'?", hint: "Dạng đúng của 'go' sau cụm từ 'would love' là gì?", options: ["go", "goes", "going", "to go"], ans: "D", expl: "Các cụm từ <strong>'would love'</strong>, 'would like', và 'would prefer' được theo sau bởi một <strong>động từ nguyên mẫu có 'to'</strong>." },
+        { q: "The verb 'avoid' is followed by which verb form?", hint: "Động từ 'avoid' được theo sau bởi dạng động từ nào?", options: ["Gerund (-ing)", "To-infinitive", "Bare infinitive", "Past tense"], ans: "A", expl: "Động từ <strong>'avoid' (tránh)</strong> luôn được theo sau bởi một <strong>danh động từ (-ing)</strong>. Ví dụ: 'You should avoid eating junk food'." },
+        { q: "When do we use 'was' vs 'were' in the Past Continuous?", hint: "Khi nào chúng ta dùng 'was' và 'were' trong thì Quá khứ tiếp diễn?", options: ["'was' for I/He/She/It, 'were' for You/We/They", "'were' for I/He/She/It, 'was' for You/We/They", "There is no difference", "'was' for singular, 'were' for plural"], ans: "A", expl: "Quy tắc là: <strong>'was'</strong> được sử dụng với các chủ ngữ số ít <strong>I, He, She, It</strong>, và <strong>'were'</strong> được sử dụng với các chủ ngữ số nhiều <strong>We, You, They</strong>." },
+        { q: "The phrase 'used to' is for describing...", hint: "Cụm từ 'used to' dùng để miêu tả...", options: ["current habits", "past habits or states that are no longer true", "actions that were used for something", "temporary past actions"], ans: "B", expl: "<strong>'Used to' (đã từng)</strong> mô tả một điều gì đó thường xuyên xảy ra trong quá khứ nhưng bây giờ không còn nữa." },
+        { q: "How do you form the negative of a sentence with 'used to'?", hint: "Bạn tạo dạng phủ định của một câu có 'used to' như thế nào?", options: ["used not to", "didn't used to", "didn't use to", "not used to"], ans: "C", expl: "Dạng phủ định chính xác là <strong>didn't use to + verb</strong>. Chữ 'd' ở cuối từ 'used' được bỏ đi vì đã có trợ động từ 'did'." },
+        { q: "Which word signals an action happening sequentially in the past simple?", hint: "Từ nào báo hiệu một hành động xảy ra tuần tự trong thì quá khứ đơn?", options: ["while", "at that moment", "then", "usually"], ans: "C", expl: "Các từ như 'first', <strong>'then' (sau đó)</strong>, và 'after that' được sử dụng để chỉ một chuỗi các hành động đã hoàn thành trong thì Quá khứ đơn." },
+        { q: "What is the question form of 'He used to live here'?", hint: "Dạng câu hỏi của 'He used to live here' là gì?", options: ["Did he used to live here?", "Used he to live here?", "Did he use to live here?", "Does he use to live here?"], ans: "C", expl: "Dạng câu hỏi chính xác là <strong>'Did + chủ ngữ + use to + verb?'</strong>. Chữ 'd' ở cuối từ 'used' được bỏ đi." },
+        { q: "The verb 'mind' (as in 'I don't mind') is followed by...", hint: "Động từ 'mind' (như trong 'I don't mind') được theo sau bởi...", options: ["a to-infinitive", "a bare infinitive", "a gerund (-ing)", "a noun clause"], ans: "C", expl: "Động từ <strong>'mind' (phiền)</strong> được theo sau bởi một <strong>danh động từ (-ing)</strong>. Ví dụ: 'I don't mind helping you' (Tôi không phiền giúp bạn)." },
+        { q: "What is the opposite structure of 'too difficult to do'?", hint: "Cấu trúc đối lập của 'too difficult to do' là gì?", options: ["easy enough to do", "so difficult to do", "very difficult to do", "not difficult to do"], ans: "A", expl: "'Too difficult' (quá khó) mang nghĩa phủ định (không thể làm được), trong khi <strong>'easy enough' (đủ dễ)</strong> mang nghĩa khẳng định (có thể làm được)." },
+        { q: "The structure 'go + V-ing' is used for...", hint: "Cấu trúc 'go + V-ing' được dùng cho...", options: ["all activities", "hobbies and recreational activities", "household chores", "academic subjects"], ans: "B", expl: "Chúng ta thường sử dụng <strong>'go + danh động từ'</strong> để nói về các môn thể thao và sở thích, chẳng hạn như 'go swimming', 'go shopping', hay 'go fishing'." },
+        { q: "For regular verbs ending in 'vowel + y', how do you form the past simple?", hint: "Đối với động từ có quy tắc kết thúc bằng 'nguyên âm + y', bạn tạo thì quá khứ đơn như thế nào?", options: ["Add -d", "Change y to i and add -ed", "Just add -ed", "Double the y and add -ed"], ans: "C", expl: "Nếu động từ kết thúc bằng một nguyên âm trước 'y', chúng ta <strong>chỉ cần thêm -ed</strong>. Ví dụ: 'play' trở thành 'played' và 'stay' trở thành 'stayed'." },
+        { q: "What does the sentence 'I wish I had a car' imply?", hint: "Câu 'I wish I had a car' ngụ ý điều gì?", options: ["I will have a car soon", "I have a car now", "I don't have a car now", "I had a car in the past"], ans: "C", expl: "Câu này sử dụng 'wish + quá khứ đơn' để diễn tả một mong muốn về điều không đúng sự thật ở hiện tại. Nó ngụ ý rằng <strong>bây giờ tôi không có ô tô</strong>." },
+
+        // Practice Questions (50)
+        { q: "Tina is a well-known KOL. She ________ vlogs for TikTok every week.", hint: "Tina là một KOL nổi tiếng. Cô ấy ________ vlog cho TikTok mỗi tuần.", options: ["writes", "write", "makes", "make"], ans: "C", expl: "Cụm từ 'every week' (mỗi tuần) là dấu hiệu của thì Hiện tại đơn. Chủ ngữ 'She' là ngôi thứ ba số ít nên động từ phải thêm '-s'. Cụm từ đúng là <strong>'makes vlogs' (làm vlog)</strong>." },
+        { q: "At 10 p.m. last night, Tennie ________ her profile picture.", hint: "Vào lúc 10 giờ tối qua, Tennie ________ ảnh đại diện của cô ấy.", options: ["updated", "was updating", "updates", "is updating"], ans: "B", expl: "Thời gian cụ thể trong quá khứ ('At 10 p.m. last night') cho thấy một hành động đang diễn ra. Điều này đòi hỏi thì Quá khứ tiếp diễn: <strong>was updating</strong>." },
+        { q: "I don't have my own smartphone. I wish my parents ________ me buy one for myself.", hint: "Tôi không có điện thoại thông minh của riêng mình. Tôi ước bố mẹ tôi ________ tôi mua một cái.", options: ["let", "lets", "letted", "would let"], ans: "D", expl: "Cấu trúc câu ước về hành động của người khác trong tương lai là 'wish + S + would + V'. 'Letted' không phải là một từ. Đáp án đúng nhất ở đây là <strong>'would let'</strong>." },
+        { q: "Many people think it's easier to ________ in big cities because they can find jobs more easily.", hint: "Nhiều người nghĩ rằng ________ ở các thành phố lớn dễ dàng hơn vì họ có thể tìm việc làm dễ hơn.", options: ["support living", "get a living", "make a living", "provide living"], ans: "C", expl: "Thành ngữ chính xác là <strong>'make a living'</strong>, có nghĩa là kiếm đủ tiền để sống." },
+        { q: "We ________ a new vlog on our camcorder when it was broken.", hint: "Chúng tôi ________ một vlog mới trên máy quay của mình thì nó bị hỏng.", options: ["records", "record", "were recording", "recorded"], ans: "C", expl: "Câu này mô tả một hành động dài ('recording a vlog') bị một hành động ngắn hơn xen vào ('it was broken'). Cấu trúc này sử dụng thì Quá khứ tiếp diễn: <strong>were recording</strong>." },
+        { q: "Traditional costumes from some countries are famous around the world. The word 'famous' is closest in meaning to...", hint: "Trang phục truyền thống từ một số quốc gia thì nổi tiếng khắp thế giới. Từ 'famous' gần nghĩa nhất với...", options: ["ordinary", "regular", "normal", "well-known"], ans: "D", expl: "<strong>'Famous' (nổi tiếng)</strong> có nghĩa là được nhiều người biết đến, vì vậy từ đồng nghĩa gần nhất trong các lựa chọn là <strong>'well-known'</strong>." },
+        { q: "Today, people usually get around by cars, buses or motorbikes. The word 'get around' is opposite in meaning to...", hint: "Ngày nay, mọi người thường đi lại bằng ô tô, xe buýt hoặc xe máy. Từ 'get around' trái nghĩa với...", options: ["go over", "go around", "stay in", "get in"], ans: "C", expl: "<strong>'Get around'</strong> có nghĩa là đi lại, di chuyển từ nơi này đến nơi khác. Trái nghĩa với nó sẽ là không đi lại, hoặc <strong>'stay in' (ở yên một chỗ)</strong>." },
+        { q: "Lisa was going home when she ________ her new English teacher at the corner of the street.", hint: "Lisa đang về nhà thì cô ấy ________ giáo viên tiếng Anh mới của mình ở góc phố.", options: ["meets", "met", "was meeting", "meet"], ans: "B", expl: "Thì quá khứ tiếp diễn 'was going' tạo bối cảnh cho một hành động xen ngang, hành động này phải ở thì Quá khứ đơn. Quá khứ của 'meet' là <strong>'met'</strong>." },
+        { q: "My friend's parents ________ they could afford to buy a new television.", hint: "Bố mẹ của bạn tôi ________ rằng họ có đủ khả năng mua một chiếc tivi mới.", options: ["wish", "wishes", "are wishing", "wished"], ans: "A", expl: "Chủ ngữ 'parents' (bố mẹ) là số nhiều, vì vậy động từ 'wish' không cần thêm '-s'. Động từ 'could' đã ở dạng quá khứ theo yêu cầu của mệnh đề ước." },
+        { q: "Louis spends too much time surfing the Internet every day, which he doesn't like. He wishes he ________ so much time surfing.", hint: "Louis dành quá nhiều thời gian lướt Internet mỗi ngày, điều mà anh ấy không thích. Anh ấy ước mình ________ quá nhiều thời gian lướt mạng.", options: ["doesn't spend", "didn't spend", "isn't spending", "wouldn't spend"], ans: "B", expl: "Để diễn tả một mong ước về thói quen của chính mình ở hiện tại, chúng ta sử dụng 'wish + Quá khứ đơn'. Vì vậy, 'spends' trở thành <strong>'didn't spend'</strong> trong mệnh đề ước." },
+        { q: "Tony and Ben were playing in the garden while their mom ________ cooking at 3 p.m. yesterday.", hint: "Tony và Ben đang chơi trong vườn trong khi mẹ của họ ________ nấu ăn vào lúc 3 giờ chiều hôm qua.", options: ["is", "was", "were", "has been"], ans: "B", expl: "'While' (trong khi) cho thấy hai hành động xảy ra đồng thời trong quá khứ. 'Tony and Ben were playing' là Quá khứ tiếp diễn, nên hành động còn lại cũng vậy. 'Mom' là số ít, nên chúng ta dùng <strong>'was'</strong>." },
+        { q: "Would you like ________ on a break to the Italian countryside this summer holiday?", hint: "Bạn có muốn ________ một chuyến nghỉ ở miền quê nước Ý vào kỳ nghỉ hè này không?", options: ["go", "goes", "going", "to go"], ans: "D", expl: "Cụm từ <strong>'Would you like'</strong> luôn được theo sau bởi một <strong>động từ nguyên mẫu có 'to' (to-infinitive)</strong>." },
+        { q: "You had better ________ a notebook to write down all the new words you come across.", hint: "Bạn tốt hơn nên ________ một cuốn sổ để ghi lại tất cả các từ mới bạn bắt gặp.", options: ["keeps", "keeping", "keep", "to keep"], ans: "C", expl: "Cấu trúc <strong>'had better' (tốt hơn nên)</strong> được theo sau bởi một <strong>động từ nguyên mẫu không 'to' (bare infinitive)</strong>." },
+        { q: "Charlie suggested ________ the holiday with the travel agent.", hint: "Charlie đã gợi ý ________ kỳ nghỉ với đại lý du lịch.", options: ["book", "booking", "books", "to book"], ans: "B", expl: "Động từ <strong>'suggest' (gợi ý)</strong> được theo sau bởi một <strong>danh động từ (V-ing)</strong>." },
+        { q: "I don't know ________ to look for information about the New Seven Wonders of the World.", hint: "Tôi không biết ________ tìm thông tin về Bảy kỳ quan thế giới mới ở đâu.", options: ["who", "what", "where", "how"], ans: "C", expl: "Câu hỏi này về địa điểm tìm kiếm thông tin. <strong>'Where to look' (tìm ở đâu)</strong> là cụm từ chính xác. 'How' sẽ ngụ ý về phương pháp, không phải địa điểm." },
+        { q: "The cliffs were ________ steep for us to climb without proper equipment.", hint: "Vách đá ________ dốc để chúng tôi leo lên mà không có thiết bị phù hợp.", options: ["too", "enough", "that", "so"], ans: "A", expl: "Cấu trúc <strong>'too + tính từ + to-infinitive'</strong> được sử dụng ở đây với nghĩa là độ dốc quá cao đã ngăn cản việc leo trèo." },
+        { q: "Some parents don't let their sons or daughters ________ on any school trips.", hint: "Một số phụ huynh không để con trai hoặc con gái của họ ________ trong bất kỳ chuyến đi học nào.", options: ["to go", "gone", "go", "going"], ans: "C", expl: "Động từ <strong>'let' (để, cho phép)</strong> được theo sau bởi một tân ngữ và một <strong>động từ nguyên mẫu không 'to'</strong>." },
+        { q: "People may not have ________ to visit all of the famous places on their itineraries when they are on holiday.", hint: "Mọi người có thể không có ________ để thăm tất cả các địa điểm nổi tiếng trong lịch trình của họ khi đi nghỉ.", options: ["enough time", "times enough", "a lot of times", "lots time"], ans: "A", expl: "Cấu trúc đúng là <strong>'enough + danh từ'</strong>. Do đó, <strong>'enough time' (đủ thời gian)</strong> là câu trả lời đúng." },
+        { q: "The weather isn't cool enough ________ on a mountain holiday.", hint: "Thời tiết không đủ mát mẻ ________ một kỳ nghỉ trên núi.", options: ["go", "to go", "going", "for going"], ans: "B", expl: "Cấu trúc là 'tính từ + enough + <strong>to-infinitive</strong>'. Vì vậy, 'cool enough <strong>to go</strong>' là đúng." },
+        { q: "We considered ________ Victoria Falls this year to experience the beautiful nature.", hint: "Chúng tôi đã cân nhắc ________ thác Victoria trong năm nay để trải nghiệm thiên nhiên tươi đẹp.", options: ["visit", "visiting", "to visit", "visited"], ans: "B", expl: "Động từ <strong>'consider' (cân nhắc)</strong> được theo sau bởi một <strong>danh động từ (V-ing)</strong>." },
+        { q: "When Tommy got lost, he didn't know what he ________ do.", hint: "Khi Tommy bị lạc, anh ấy không biết mình ________ làm gì.", options: ["can", "could", "to do", "should to"], ans: "B", expl: "Câu chính ở thì quá khứ ('got lost', 'didn't know'), vì vậy động từ khiếm khuyết trong mệnh đề cũng nên ở dạng quá khứ. Quá khứ của 'can' là <strong>'could'</strong>." },
+        { q: "Why don't we go on a camping trip? I suggest ________ on a camping trip.", hint: "Tại sao chúng ta không đi cắm trại? Tôi đề nghị ________ một chuyến cắm trại.", options: ["to go", "we to go", "going", "us going"], ans: "C", expl: "Động từ <strong>'suggest' (gợi ý)</strong> được theo sau bởi một danh động từ (dạng V-ing)." },
+        { q: "The tour guide told us where we should ask about the tour information. He told us where ________ about it.", hint: "Hướng dẫn viên du lịch nói với chúng tôi nơi chúng tôi nên hỏi về thông tin tour. Anh ấy nói với chúng tôi ________ về nó.", options: ["to ask", "asking", "should ask", "ask"], ans: "A", expl: "Một mệnh đề 'Từ để hỏi Wh- + should + verb' có thể được rút ngắn thành 'Từ để hỏi Wh- + <strong>to-infinitive</strong>'." },
+        { q: "Lisa didn't have enough energy to go trekking. Lisa was too ________ to go trekking.", hint: "Lisa không có đủ năng lượng để đi bộ đường dài. Lisa đã quá ________ để đi bộ đường dài.", options: ["tiring", "tire", "tired", "tiresome"], ans: "C", expl: "'Not enough energy' (không đủ năng lượng) có nghĩa tương đương với 'too <strong>tired</strong>' (quá mệt)." },
+        { q: "The wind was too weak to cause any damage. The wind wasn't ________ to cause any damage.", hint: "Gió quá yếu để gây ra bất kỳ thiệt hại nào. Gió không ________ để gây ra bất kỳ thiệt hại nào.", options: ["strong enough", "enough strong", "so strong", "very strong"], ans: "A", expl: "Trái nghĩa của 'too weak' (quá yếu) là 'strong enough' (đủ mạnh). Cấu trúc là <strong>'tính từ + enough'</strong>." },
+        { q: "John wants to book a hotel room online, but he doesn't know how ________ it.", hint: "John muốn đặt phòng khách sạn trực tuyến, nhưng anh ấy không biết làm thế nào ________ nó.", options: ["do", "to do", "doing", "does"], ans: "B", expl: "Cấu trúc 'how + should + chủ ngữ + verb' có thể được rút ngắn thành 'how + <strong>to-infinitive</strong>'." },
+        { q: "In the past, most things were really different. The opposite of 'different' is...", hint: "Trong quá khứ, hầu hết mọi thứ đều thực sự khác biệt. Trái nghĩa của 'different' là...", options: ["similar", "unusual", "strange", "varied"], ans: "A", expl: "<strong>'Different' (khác biệt)</strong> có nghĩa là không giống nhau. Từ trái nghĩa trực tiếp của nó là <strong>'similar' (tương tự)</strong>." },
+        { q: "People used carrier pigeons to deliver messages in the past. The closest meaning of 'deliver' is...", hint: "Mọi người đã sử dụng chim bồ câu đưa thư để chuyển tin nhắn trong quá khứ. Nghĩa gần nhất của 'deliver' là...", options: ["retain", "send", "capture", "receive"], ans: "B", expl: "<strong>'Deliver' (chuyển)</strong> một tin nhắn có nghĩa là mang nó đến cho một người hoặc một nơi, rất gần nghĩa với <strong>'send' (gửi)</strong>." },
+        { q: "He is not very ________. He rarely talks to anyone.", hint: "Anh ấy không ________ lắm. Anh ấy hiếm khi nói chuyện với bất cứ ai.", options: ["communicate", "communicative", "communication", "communicator"], ans: "B", expl: "Chúng ta cần một tính từ để mô tả anh ấy. <strong>'Communicative'</strong> là dạng tính từ, có nghĩa là cởi mở, sẵn lòng nói chuyện với mọi người." },
+        { q: "People usually dress ________ on special occasions.", hint: "Mọi người thường ăn mặc ________ vào những dịp đặc biệt.", options: ["tradition", "traditional", "traditionally", "traditions"], ans: "C", expl: "Chúng ta cần một trạng từ để mô tả cách mọi người ăn mặc. <strong>'Traditionally' (một cách truyền thống)</strong> là dạng trạng từ của 'tradition'." },
+        { q: "I have some ________ friends whom I can rely on.", hint: "Tôi có một vài người bạn ________ mà tôi có thể tin cậy.", options: ["support", "supportive", "supporter", "supporting"], ans: "B", expl: "Chúng ta cần một tính từ để mô tả những người bạn. <strong>'Supportive'</strong> là tính từ có nghĩa là luôn ủng hộ, khuyến khích hoặc giúp đỡ về mặt tinh thần." },
+        { q: "It is ________ to ride a horse on the street today.", hint: "________ khi cưỡi ngựa trên đường phố ngày nay.", options: ["unusual", "usually", "usual", "as usual"], ans: "A", expl: "Câu này đòi hỏi một tính từ để mô tả tình huống. Cưỡi ngựa trên đường phố không phổ biến, vì vậy nó là <strong>'unusual' (bất thường)</strong>." },
+        { q: "The ________ of radio for communication has decreased over the years.", hint: "________ của radio trong giao tiếp đã giảm trong những năm qua.", options: ["popular", "popularly", "popularity", "popularise"], ans: "C", expl: "Sau mạo từ 'the', chúng ta cần một danh từ. <strong>'Popularity' (sự phổ biến)</strong> là dạng danh từ, chỉ trạng thái được nhiều người yêu thích." },
+        { q: "We stayed in a hotel with lots of modern ________ last summer.", hint: "Chúng tôi đã ở trong một khách sạn với rất nhiều ________ hiện đại vào mùa hè năm ngoái.", options: ["facility", "facilities", "facilitate", "facilitation"], ans: "B", expl: "'Lots of' phải được theo sau bởi một danh từ số nhiều. <strong>'Facilities' (cơ sở vật chất)</strong> là các tòa nhà, thiết bị và dịch vụ được cung cấp cho một mục đích cụ thể." },
+        { q: "The ________ for the exchange students is a traditional Japanese house.", hint: "________ cho các sinh viên trao đổi là một ngôi nhà truyền thống của Nhật Bản.", options: ["accommodate", "accommodated", "accommodating", "accommodation"], ans: "D", expl: "Chủ ngữ của câu cần phải là một danh từ. <strong>'Accommodation' (chỗ ở)</strong> chỉ một nơi để sống hoặc ở." },
+        { q: "Ha Long Bay is one of the most beautiful tourist ________ in the world.", hint: "Vịnh Hạ Long là một trong những ________ du lịch đẹp nhất thế giới.", options: ["attractive", "attractions", "attract", "attractiveness"], ans: "B", expl: "'Tourist' ở đây đóng vai trò như một tính từ, vì vậy nó phải được theo sau bởi một danh từ. 'Tourist <strong>attraction</strong>' là một địa điểm thu hút khách du lịch." },
+        { q: "The development of tourism can lead to the ________ of wild animals' habitat.", hint: "Sự phát triển của du lịch có thể dẫn đến ________ môi trường sống của động vật hoang dã.", options: ["destroy", "destroyed", "destructive", "destruction"], ans: "D", expl: "Sau mạo từ 'the', chúng ta cần một danh từ. <strong>'Destruction' (sự phá hủy)</strong> là dạng danh từ của 'destroy'." },
+        { q: "A trip to Hoi An Ancient Town is definitely an ________ experience.", hint: "Một chuyến đi đến Phố cổ Hội An chắc chắn là một trải nghiệm ________.", options: ["unforgettable", "forget", "forgettable", "forgetful"], ans: "A", expl: "Chúng ta cần một tính từ để mô tả trải nghiệm. Vì đây là một câu khẳng định tích cực, <strong>'unforgettable' (không thể nào quên)</strong> là lựa chọn phù hợp nhất." },
+        { q: "We need to find a solution that is ________ for everyone.", hint: "Chúng ta cần tìm một giải pháp ________ cho mọi người.", options: ["afford", "affordable", "affordably", "affordability"], ans: "B", expl: "Chúng ta cần một tính từ để mô tả 'solution' (giải pháp). <strong>'Affordable'</strong> có nghĩa là có giá cả phải chăng." },
+        { q: "The cliffs in the canyon were ________ and beautiful.", hint: "Những vách đá trong hẻm núi thì ________ và đẹp.", options: ["massively", "mass", "massive", "masses"], ans: "C", expl: "Chúng ta cần một tính từ để mô tả các vách đá. <strong>'Massive'</strong> có nghĩa là rất lớn về kích thước." },
+        { q: "The ________ of the rock was caused by centuries of wind and rain.", hint: "________ của tảng đá được gây ra bởi hàng thế kỷ của gió và mưa.", options: ["form", "formation", "formative", "former"], ans: "B", expl: "Sau mạo từ 'the', cần có một danh từ. <strong>'Formation' (sự hình thành)</strong> là danh từ có nghĩa là quá trình một cái gì đó có được một hình dạng cụ thể." },
+        { q: "It is ________ to finish a long hike if you are not prepared.", hint: "________ để hoàn thành một chuyến đi bộ đường dài nếu bạn không chuẩn bị.", options: ["difficult", "difficulty", "difficultly", "differently"], ans: "A", expl: "Cấu trúc 'It is + ... + to-infinitive' đòi hỏi một tính từ. <strong>'Difficult' (khó)</strong> là tính từ chính xác." },
+        { q: "We waited for the bus ________ us on a sightseeing tour.", hint: "Chúng tôi đợi xe buýt ________ chúng tôi đi tham quan.", options: ["take", "taking", "to take", "took"], ans: "C", expl: "Động từ nguyên mẫu có 'to' được sử dụng ở đây để diễn tả mục đích của việc chờ đợi. Chúng tôi chờ đợi với mục đích để xe buýt đưa chúng tôi đi." },
+        { q: "I can't stand ________ without making a stop along the way.", hint: "Tôi không thể chịu được việc ________ mà không dừng lại trên đường đi.", options: ["travel", "to travel", "travelled", "travelling"], ans: "D", expl: "Cụm từ 'can't stand' (không thể chịu được) được theo sau bởi một danh động từ (-ing)." },
+        { q: "She wants ________ shopping at the local market.", hint: "Cô ấy muốn ________ mua sắm ở chợ địa phương.", options: ["to go", "go", "going", "goes"], ans: "A", expl: "Động từ 'want' (muốn) được theo sau bởi một động từ nguyên mẫu có 'to'." },
+        { q: "He's considering ________ on a beach holiday this summer.", hint: "Anh ấy đang cân nhắc ________ một kỳ nghỉ ở bãi biển vào mùa hè này.", options: ["go", "to go", "going", "gone"], ans: "C", expl: "Động từ 'consider' (cân nhắc) được theo sau bởi một danh động từ (-ing)." },
+        { q: "I'm not sure when ________ my holiday.", hint: "Tôi không chắc khi nào ________ kỳ nghỉ của mình.", options: ["take", "to take", "taking", "took"], ans: "B", expl: "Cấu trúc 'Từ để hỏi Wh- (when) + to-infinitive' được sử dụng ở đây để tạo thành một cụm danh từ làm tân ngữ cho 'sure'." },
+        { q: "It's too dangerous for non-professional people ________ Mount Everest.", hint: "Quá nguy hiểm cho những người không chuyên nghiệp ________ đỉnh Everest.", options: ["climb", "climbing", "to climb", "climbed"], ans: "C", expl: "Cấu trúc là 'too + tính từ + (for someone) + <strong>to-infinitive</strong>'." },
+        { q: "Jackson was brave enough ________ a bungee jump from Victoria Falls.", hint: "Jackson đã đủ dũng cảm để ________ nhảy bungee từ Thác Victoria.", options: ["experience", "experiencing", "to experience", "experienced"], ans: "C", expl: "Cấu trúc là 'tính từ + enough + <strong>to-infinitive</strong>'." },
+        { q: "We don't have enough time ________ all of the famous tourist attractions.", hint: "Chúng tôi không có đủ thời gian ________ tất cả các điểm du lịch nổi tiếng.", options: ["visit", "to visit", "visiting", "visited"], ans: "B", expl: "Cấu trúc là 'enough + danh từ + <strong>to-infinitive</strong>'." }
+      ];
+      const TOTAL_QUESTIONS = quizData.length;
+      // --- END OF CONSTANTS ---
+
+
+      // --- START OF QUIZSCREEN COMPONENT ---
+      const QuizScreen = ({
+        question,
+        questionIndex,
+        score,
+        selectedAnswer,
+        onAnswerSelect,
+        onNext,
+      }) => {
+        const isAnswered = selectedAnswer !== null;
+        const isCorrect = isAnswered && selectedAnswer === question.ans;
+
+        return React.createElement('div', null,
+          React.createElement('div', { className: "flex justify-between items-center mb-4 text-gray-600" },
+            React.createElement('span', { className: "text-xl font-bold text-green-600 flex items-center" },
+              React.createElement(StarIcon, { className: "w-6 h-6 mr-1" }), ` Điểm: ${score}`
+            ),
+            React.createElement('span', { className: "text-lg font-semibold text-blue-500" },
+              `Câu ${questionIndex + 1} / ${TOTAL_QUESTIONS}`
+            )
+          ),
+          React.createElement('div', { className: "bg-gray-50 p-5 rounded-xl mb-6 shadow-inner" },
+            React.createElement('p', { className: "text-xl font-bold text-gray-800" }, question.q),
+            question.hint && React.createElement('div', { className: "mt-3 pt-3 border-t border-gray-200" },
+              React.createElement('p', { className: "text-base italic text-gray-600" },
+                React.createElement('span', { className: "font-semibold text-blue-600 not-italic" }, "Gợi ý: "),
+                question.hint
+              )
+            )
+          ),
+          React.createElement('div', { className: "grid gap-3" },
+            ['A', 'B', 'C', 'D'].map((label, index) => {
+              const isCorrectAnswer = label === question.ans;
+              const isSelected = label === selectedAnswer;
+              
+              let buttonClass = 'p-3 text-left transition-all duration-200 ease-in-out border-2 rounded-lg font-medium shadow-sm';
+              if (isAnswered) {
+                  buttonClass += ' cursor-default';
+                  if (isCorrectAnswer) {
+                      buttonClass += ' bg-green-100 border-green-500 text-green-800 font-bold shadow-md';
+                  } else if (isSelected) {
+                      buttonClass += ' bg-red-100 border-red-500 text-red-800 font-bold shadow-md';
+                  } else {
+                      buttonClass += ' bg-gray-100 border-gray-300 opacity-70';
+                  }
+              } else {
+                  buttonClass += ' bg-gray-50 border-gray-300 hover:bg-blue-100 hover:border-blue-400 transform hover:-translate-y-0.5';
+              }
+              
+              return React.createElement('button',
+                {
+                  key: label,
+                  onClick: () => onAnswerSelect(label),
+                  disabled: isAnswered,
+                  className: buttonClass,
+                },
+                React.createElement('span', { className: "font-extrabold mr-2" }, `${label}.`),
+                question.options[index]
+              );
+            })
+          ),
+          isAnswered && React.createElement('div', { className: "mt-4" },
+            React.createElement('div', { className: `p-3 rounded-lg font-semibold flex items-center ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}` },
+              isCorrect ? React.createElement(CheckCircleIcon, { className: "w-5 h-5 mr-2" }) : React.createElement(TimesCircleIcon, { className: "w-5 h-5 mr-2" }),
+              isCorrect ? 'Chính xác!' : `Sai rồi. Đáp án đúng là ${question.ans}.`
+            ),
+            !isCorrect && React.createElement('div', { className: "bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 p-4 mt-4 rounded-r-lg" },
+                React.createElement('p', { className: "font-bold mb-1 flex items-center text-yellow-900" },
+                    React.createElement(LightbulbIcon, { className: "w-5 h-5 mr-2" }),
+                    "Giải thích chi tiết:"
+                ),
+                React.createElement('p', { className: "text-sm", dangerouslySetInnerHTML: { __html: question.expl } })
+            )
+          ),
+          React.createElement('button',
+            {
+              onClick: onNext,
+              disabled: !isAnswered,
+              className: "mt-6 w-full py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition duration-150 flex items-center justify-center"
+            },
+            questionIndex === TOTAL_QUESTIONS - 1 ? 'Xem Kết Quả' : 'Câu Tiếp Theo',
+            React.createElement(ArrowRightIcon, { className: "w-5 h-5 ml-2" })
+          )
+        );
+      };
+      // --- END OF QUIZSCREEN COMPONENT ---
+
+
+      // --- START OF RESULTSCREEN COMPONENT ---
+      const ResultScreen = ({ score, mistakesCount, onRestart, onReview }) => {
+        return React.createElement('div', { className: "text-center p-4" },
+          React.createElement('h2', { className: "text-4xl font-extrabold text-gray-800 mb-4 flex items-center justify-center" },
+            React.createElement(TrophyIcon, { className: "w-10 h-10 text-yellow-500 mr-3" }),
+            "KẾT QUẢ"
+          ),
+          React.createElement('p', { className: "text-2xl mb-6 text-gray-600" }, `Bạn đã hoàn thành ${TOTAL_QUESTIONS} câu hỏi!`),
+          React.createElement('p', { className: "text-6xl font-extrabold text-green-600 mb-8" }, `${score} / ${TOTAL_QUESTIONS}`),
+          React.createElement('div', { className: "grid grid-cols-1 md:grid-cols-2 gap-4" },
+            React.createElement('button',
+              {
+                onClick: onReview,
+                disabled: mistakesCount === 0,
+                className: "py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg shadow-lg transition duration-150 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-red-500"
+              },
+              mistakesCount > 0 ?
+                React.createElement(React.Fragment, null,
+                  React.createElement(ExclamationTriangleIcon, { className: "w-5 h-5 mr-2" }), ` Xem Lại ${mistakesCount} Lỗi Sai`
+                ) : '🥳 Bạn không có lỗi sai nào!'
+            ),
+            React.createElement('button',
+              {
+                onClick: onRestart,
+                className: "py-3 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-lg shadow-lg transition duration-150 flex items-center justify-center"
+              },
+              React.createElement(RedoAltIcon, { className: "w-5 h-5 mr-2" }), " Ôn Tập Lại Từ Đầu"
+            )
+          )
+        );
+      };
+      // --- END OF RESULTSCREEN COMPONENT ---
+
+
+      // --- START OF REVIEWSCREEN COMPONENT ---
+      const ReviewScreen = ({ mistakes, onBackToResult }) => {
+        return React.createElement('div', null,
+          React.createElement('h2', { className: "text-3xl font-extrabold text-red-600 mb-6 flex items-center" },
+            React.createElement(BookOpenIcon, { className: "w-8 h-8 mr-2" }),
+            "LỖI SAI CẦN RÚT KINH NGHIỆM"
+          ),
+          React.createElement('div', { className: "mb-6 max-h-96 overflow-y-auto pr-2 space-y-4" },
+            mistakes.length === 0 ?
+              React.createElement('p', { className: "text-gray-500 italic text-center" }, "Chúc mừng, bạn không có lỗi sai nào cần xem lại!") :
+              mistakes.map((item, index) =>
+                React.createElement('div', { key: index, className: "bg-gray-50 border border-gray-200 p-4 rounded-lg shadow-sm" },
+                  React.createElement('p', { className: "font-bold text-blue-600 mb-2" }, `${index + 1}. ${item.question}`),
+                  React.createElement('p', { className: "mb-1" },
+                    React.createElement('span', { className: "font-semibold" }, "Bạn đã chọn:"),
+                    React.createElement('span', { className: "text-red-600 font-medium" }, ` ${item.userLabel}. ${item.userAnswer}`)
+                  ),
+                  React.createElement('p', { className: "mb-2" },
+                    React.createElement('span', { className: "font-semibold" }, "Đáp án đúng:"),
+                    React.createElement('span', { className: "text-green-600 font-medium" }, ` ${item.correctLabel}. ${item.correctAnswer}`)
+                  ),
+                  React.createElement('div', { className: "bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800 p-3 mt-2 rounded-r-md" },
+                    React.createElement('p', { className: "font-bold mb-1 flex items-center text-yellow-900" },
+                      React.createElement(SearchPlusIcon, { className: "w-5 h-5 mr-1" }),
+                      "Giải thích chi tiết:"
+                    ),
+                    React.createElement('p', { className: "text-sm", dangerouslySetInnerHTML: { __html: item.explanation } })
+                  )
+                )
+              )
+          ),
+          React.createElement('button',
+            {
+              onClick: onBackToResult,
+              className: "w-full py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-lg shadow-md transition duration-150 flex items-center justify-center"
+            },
+            React.createElement(ArrowLeftIcon, { className: "w-5 h-5 mr-2" }),
+            "Quay Lại Màn Hình Kết Quả"
+          )
+        );
+      };
+      // --- END OF REVIEWSCREEN COMPONENT ---
+
+
+      // --- START OF APP COMPONENT ---
+      const App = () => {
+        const [gameState, setGameState] = useState('quiz');
+        const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+        const [score, setScore] = useState(0);
+        const [mistakes, setMistakes] = useState([]);
+        const [selectedAnswer, setSelectedAnswer] = useState(null);
+
+        const currentQuestion = useMemo(() => quizData[currentQuestionIndex], [currentQuestionIndex]);
+
+        const handleAnswerSelect = useCallback((selectedLabel) => {
+          if (selectedAnswer) return;
+
+          setSelectedAnswer(selectedLabel);
+          const isCorrect = selectedLabel === currentQuestion.ans;
+
+          if (isCorrect) {
+            setScore(prev => prev + 1);
+          } else {
+            const optionLabels = { 'A': 0, 'B': 1, 'C': 2, 'D': 3 };
+            setMistakes(prev => [
+              ...prev,
+              {
+                question: currentQuestion.q,
+                userAnswer: currentQuestion.options[optionLabels[selectedLabel]],
+                correctAnswer: currentQuestion.options[optionLabels[currentQuestion.ans]],
+                explanation: currentQuestion.expl,
+                userLabel: selectedLabel,
+                correctLabel: currentQuestion.ans,
+              }
+            ]);
+          }
+        }, [currentQuestion, selectedAnswer]);
+
+        const handleNextQuestion = useCallback(() => {
+          setSelectedAnswer(null);
+          if (currentQuestionIndex < TOTAL_QUESTIONS - 1) {
+            setCurrentQuestionIndex(prev => prev + 1);
+          } else {
+            setGameState('result');
+          }
+        }, [currentQuestionIndex]);
+
+        const handleRestart = useCallback(() => {
+          setGameState('quiz');
+          setCurrentQuestionIndex(0);
+          setScore(0);
+          setMistakes([]);
+          setSelectedAnswer(null);
+        }, []);
+        
+        const renderScreen = () => {
+          switch (gameState) {
+            case 'quiz':
+              return React.createElement(QuizScreen, {
+                question: currentQuestion,
+                questionIndex: currentQuestionIndex,
+                score: score,
+                selectedAnswer: selectedAnswer,
+                onAnswerSelect: handleAnswerSelect,
+                onNext: handleNextQuestion,
+              });
+            case 'result':
+              return React.createElement(ResultScreen, {
+                score: score,
+                mistakesCount: mistakes.length,
+                onRestart: handleRestart,
+                onReview: () => setGameState('review'),
+              });
+            case 'review':
+              return React.createElement(ReviewScreen, { 
+                  mistakes: mistakes, 
+                  onBackToResult: () => setGameState('result'),
+              });
+            default:
+              return null;
+          }
+        };
+
+        return React.createElement('div', { className: "flex justify-center items-center min-h-screen p-4 sm:p-6" },
+          React.createElement('div', { className: "bg-white p-6 sm:p-8 rounded-2xl shadow-2xl max-w-3xl w-full border-4 border-blue-500 transform transition-all duration-500" },
+            React.createElement('h1', { className: "text-3xl md:text-4xl font-extrabold text-blue-700 mb-6 border-b-2 border-blue-200 pb-3 flex items-center" },
+              React.createElement(GraduationCapIcon, { className: "w-8 h-8 mr-3" }),
+              "Quiz Tiếng Anh 9 (Ngữ Pháp Trọng Tâm)"
+            ),
+            renderScreen()
+          )
+        );
+      };
+      // --- END OF APP COMPONENT ---
+
+
+      // --- START OF RENDER CALL ---
+      const rootElement = document.getElementById('root');
+      if (!rootElement) {
+        throw new Error("Could not find root element to mount to");
+      }
+      const root = ReactDOM.createRoot(rootElement);
+      root.render(
+        React.createElement(React.StrictMode, null, React.createElement(App, null))
+      );
+      // --- END OF RENDER CALL ---
+    </script>
+  </body>
+</html>
